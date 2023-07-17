@@ -4,4 +4,3 @@ flask
 pillow
 numpy
 requests
-base64
