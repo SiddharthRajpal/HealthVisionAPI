@@ -1,0 +1,6 @@
+Gunicorn
+tensorflow
+flask
+pillow
+numpy
+requests
