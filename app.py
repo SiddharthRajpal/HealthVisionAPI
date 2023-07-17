@@ -36,7 +36,7 @@ def Pnemonia():
 @app.route('/skincancer', methods=['POST'])
 def SkinCancer():
     image_file = request.files['image']
-    pred,con = imagerec.imagerecognise(image_file,"Models/SkinCancerModel.h5",labelpath="SkinCancerLabel.txt")
+    pred,con = imagerec.imagerecognise(image_file,"Models/SkinCancerModel.h5","Models/SkinCancerLabel.txt")
 
     return str(pred)
 
