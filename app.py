@@ -6,8 +6,7 @@ app = Flask(__name__)
 
 @app.route('/braintumor', methods=['POST'])
 def BrainTumor():
-    image_data = request.get_data()
-    image_file = base64.b64decode(image_data)
+    image_file = request.files['image']
     pred,con = imagerec.imagerecognise(image_file,"Models/BrainTumuorModel.h5",labelpath="Models/BrainTumuorLabels.txt")
 
     return str(pred)
