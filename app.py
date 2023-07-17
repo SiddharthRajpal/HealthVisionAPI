@@ -3,6 +3,13 @@ import imagerec
 import base64
 
 app = Flask(__name__)
+@app.route('/braintumorbase', methods=['POST','PUT'])
+def BrainTumorBase():
+    image_data = request.get_data()
+    image_file = base64.b64decode(image_data)
+    print(image_file)
+    pred,con = imagerec.imagerecognise(image_file,"Models/BrainTumuorModel.h5",labelpath="Models/BrainTumuorLabels.txt")
+    return str(pred)
 
 @app.route('/braintumor', methods=['POST','PUT'])
 def BrainTumor():
