@@ -8,6 +8,7 @@ app = Flask(__name__)
 def BrainTumor():
     image_data = request.get_data()
     image_file = base64.b64decode(image_data)
+    print(image_file)
     pred,con = imagerec.imagerecognise(image_file,"Models/BrainTumuorModel.h5",labelpath="Models/BrainTumuorLabels.txt")
 
     return str(pred)
