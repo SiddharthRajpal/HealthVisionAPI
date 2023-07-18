@@ -21,7 +21,7 @@ def BrainTumorBase():
     response = {
         'prediction': pred
     }
-return response
+    return response
 
 @app.route('/braintumor', methods=['POST','PUT'])
 def BrainTumor():
