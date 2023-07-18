@@ -9,8 +9,8 @@ def BrainTumorBase():
     padding = len(image_data) % 4
     if padding > 0:
         image_data += '=' * (4 - padding)
-    image_file = base64.b64decode(image_data)
-    image_utf = image_file.decode('utf-8')
+    #image_file = base64.b64decode(image_data)
+    #image_utf = image_file.decode('utf-8')
     print(image_file)
 
     print(image_utf)
