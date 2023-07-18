@@ -8,19 +8,19 @@ app = Flask(__name__)
 @app.route('/braintumorbase', methods=['POST', 'PUT'])
 def BrainTumorBase():
     image_data = request.get_data()
-        image_data = base64.b64decode(image_data)
+    image_data = base64.b64decode(image_data)
         
         # Convert the image data to PIL Image object
-        image = Image.open(io.BytesIO(image_data))
+    image = Image.open(io.BytesIO(image_data))
         
         # Convert PIL Image to numpy array
-        image_array = np.array(image)
+    image_array = np.array(image)
         
         # Perform image recognition
-        pred, _ = imagerec.imagerecognise(image_array, "Models/BrainTumuorModel.h5", labelpath="Models/BrainTumuorLabels.txt")
+     pred, _ = imagerec.imagerecognise(image_array, "Models/BrainTumuorModel.h5", labelpath="Models/BrainTumuorLabels.txt")
         
         # Return the prediction as a response
-        response = {
+     response = {
             'prediction': pred
         }
 
