@@ -55,4 +55,4 @@ def Tuberculosis():
     pred,con = imagerec.imagerecognise(image_file,"Models/BrainTumuorModel.h5",labelpath="Models/BrainTumuorLabels.txt")
 
     return str(pred)
-app.run()
+
