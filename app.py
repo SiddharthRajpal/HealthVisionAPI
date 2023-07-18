@@ -7,22 +7,25 @@ from PIL import Image
 app = Flask(__name__)
 @app.route('/braintumorbase', methods=['POST', 'PUT'])
 def BrainTumorBase():
-    image_data = request.get_data()
-    image_data = base64.b64decode(image_data)
-        
-        # Convert the image data to PIL Image object
-    image = Image.open(io.BytesIO(image_data))
-        
-        # Convert PIL Image to numpy array
-    image_array = np.array(image)
-        
-        # Perform image recognition
-    pred, _ = imagerec.imagerecognise(image_array, "Models/BrainTumuorModel.h5", labelpath="Models/BrainTumuorLabels.txt")
-        
-        # Return the prediction as a response
-    response = {
-            'prediction': pred
-        }
+    try:
+        image_data = request.get_data()
+        image_data = base64.b64decode(image_data)
+            
+            # Convert the image data to PIL Image object
+        image = Image.open(io.BytesIO(image_data))
+            
+            # Convert PIL Image to numpy array
+        image_array = np.array(image)
+            
+            # Perform image recognition
+        pred, _ = imagerec.imagerecognise(image_array, "Models/BrainTumuorModel.h5", labelpath="Models/BrainTumuorLabels.txt")
+            
+            # Return the prediction as a response
+        response = {
+                'prediction': pred
+            }
+    except Exception as e:
+        return(f"Error :- {str(e)}")
 
 @app.route('/braintumor', methods=['POST','PUT'])
 def BrainTumor():
