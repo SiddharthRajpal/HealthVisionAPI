@@ -29,14 +29,15 @@ def BrainTumorBase():
 
 @app.route('/braintumor', methods=['POST','PUT'])
 def BrainTumor():
-    image_file = request.files['image']
-    image = Image.open((image_file))
+    file = request.files['file']
+    file_path = 'uploaded_file.jpg'  # Provide a path to save the uploaded file
+    file.save(file_path)
+    try:
+        pred, con = imagerecognise(file_path, "Models/BrainTumuorModel.h5", "Models/BrainTumuorLabels.txt")
+        return f'Prediction: {pred}'
+    except Exception as e:
+        return f'Error: {str(e)}'
 
-
-    print(image_file)
-    pred,con = imagerec.imagerecognise(image_file,"Models/BrainTumuorModel.h5",labelpath="Models/BrainTumuorLabels.txt")
-
-    return str(pred)
 
 @app.route('/covid', methods=['POST'])
 def Covid():
