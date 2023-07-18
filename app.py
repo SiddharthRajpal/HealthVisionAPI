@@ -1,6 +1,7 @@
 from flask import Flask, request
 import imagerec
 import base64
+import io
 from PIL import Image
 
 app = Flask(__name__)
