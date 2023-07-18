@@ -33,7 +33,7 @@ def BrainTumor():
     file_path = 'uploaded_file.jpg'  # Provide a path to save the uploaded file
     file.save(file_path)
     try:
-        pred, con = imagerecognise(file_path, "Models/BrainTumuorModel.h5", "Models/BrainTumuorLabels.txt")
+        pred, con = imagerec.imagerecognise(file_path, "Models/BrainTumuorModel.h5", "Models/BrainTumuorLabels.txt")
         return f'Prediction: {pred}'
     except Exception as e:
         return f'Error: {str(e)}'
