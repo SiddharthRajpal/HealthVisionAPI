@@ -6,6 +6,9 @@ app = Flask(__name__)
 @app.route('/braintumorbase', methods=['POST','PUT'])
 def BrainTumorBase():
     image_data = request.get_data()
+     padding = len(base64_string) % 4
+    if padding > 0:
+        image_data += '=' * (4 - padding)
     image_file = base64.b64decode(image_data)
     image_file = image_file.decode('utf-8')
     print(image_file)
