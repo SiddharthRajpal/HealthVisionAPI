@@ -15,8 +15,6 @@ def BrainTumorBase():
         
         # Convert PIL Image to numpy array
     image_array = np.array(image)
-        
-        # Perform image recognition
     pred, _ = imagerec.imagerecognise(image_array, "Models/BrainTumuorModel.h5", labelpath="Models/BrainTumuorLabels.txt")
         
         # Return the prediction as a response
