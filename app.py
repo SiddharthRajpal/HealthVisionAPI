@@ -31,7 +31,7 @@ def BrainTumor():
 
 
     print(image_file)
-    pred,con = imagerec.imagerecognise(image,"Models/BrainTumuorModel.h5",labelpath="Models/BrainTumuorLabels.txt")
+    pred,con = imagerec.imagerecognise(image_file,"Models/BrainTumuorModel.h5",labelpath="Models/BrainTumuorLabels.txt")
 
     return str(pred)
 
