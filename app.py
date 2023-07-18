@@ -7,57 +7,37 @@ from PIL import Image
 app = Flask(__name__)
 @app.route('/braintumorbase', methods=['POST', 'PUT'])
 def BrainTumorBase():
-    try:
-        image_data = request.get_data()
-        image_data = base64.b64decode(image_data)
-            
-            # Convert the image data to PIL Image object
-        image = Image.open(io.BytesIO(image_data))
-            
-            # Convert PIL Image to numpy array
-        image_array = np.array(image)
-            
-            # Perform image recognition
-        pred, _ = imagerec.imagerecognise(image_array, "Models/BrainTumuorModel.h5", labelpath="Models/BrainTumuorLabels.txt")
-            
-            # Return the prediction as a response
-        response = {
-                'prediction': pred
-            }
-    except Exception as e:
-        return(f"Error :- {str(e)}")
+    def callback():
+        image_file = request.files['image']
+        pred,con = imagerec.imagerecognise(image_file,"Models/BrainTumuorModel.h5",labelpath="Models/BrainTumuorLabels.txt")
+
+        return str(pred)
+
 
 @app.route('/braintumor', methods=['POST','PUT'])
 def BrainTumor():
-    file = request.files['file']
-    #file_path = 'uploaded_file.jpg'  # Provide a path to save the uploaded file
-    #file.save(file_path)
-    try:
-        pred, con = imagerec.imagerecognise(file, "Models/BrainTumuorModel.h5", "Models/BrainTumuorLabels.txt")
-        return f'Prediction: {pred}'
-    except Exception as e:
-        return f'Error: {str(e)}'
+    image_file = request.files['image']
+    pred,con = imagerec.imagerecognise(image_file,"Models/BrainTumuorModel.h5",labelpath="Models/BrainTumuorLabels.txt")
 
-
+    return str(pred)
 @app.route('/covid', methods=['POST'])
 def Covid():
     image_file = request.files['image']
-    pred,con = imagerec.imagerecognise(image_file,"Models/CovidModel.h5",labelpath="Models/CovidLabels.txt")
+    pred,con = imagerec.imagerecognise(image_file,"Models/BrainTumuorModel.h5",labelpath="Models/BrainTumuorLabels.txt")
 
     return str(pred)
-
 
 @app.route('/glaucoma', methods=['POST'])
 def Glaucoma():
     image_file = request.files['image']
-    pred,con = imagerec.imagerecognise(image_file,"Models/GlaucomaModel.h5",labelpath="Models/GlaucomaLabels.txt")
+    pred,con = imagerec.imagerecognise(image_file,"Models/BrainTumuorModel.h5",labelpath="Models/BrainTumuorLabels.txt")
 
     return str(pred)
 
 @app.route('/pneumonia', methods=['POST'])
 def Pnemonia():
     image_file = request.files['image']
-    pred,con = imagerec.imagerecognise(image_file,"Models/Pnemonia.h5",labelpath="Models/labelsPnemonia.txt")
+    pred,con = imagerec.imagerecognise(image_file,"Models/BrainTumuorModel.h5",labelpath="Models/BrainTumuorLabels.txt")
 
     return str(pred)
 
@@ -65,14 +45,14 @@ def Pnemonia():
 @app.route('/skincancer', methods=['POST'])
 def SkinCancer():
     image_file = request.files['image']
-    pred,con = imagerec.imagerecognise(image_file,"Models/SkinCancerModel.h5","Models/SkinCancerLabel.txt")
+    pred,con = imagerec.imagerecognise(image_file,"Models/BrainTumuorModel.h5",labelpath="Models/BrainTumuorLabels.txt")
 
     return str(pred)
 
 @app.route('/tuberculosis', methods=['POST'])
 def Tuberculosis():
     image_file = request.files['image']
-    pred,con = imagerec.imagerecognise(image_file,"Models/tuberculosis_model.h5",labelpath="tb_labels.txt")
+    pred,con = imagerec.imagerecognise(image_file,"Models/BrainTumuorModel.h5",labelpath="Models/BrainTumuorLabels.txt")
 
     return str(pred)
-
+app.run()
