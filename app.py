@@ -3,21 +3,29 @@ import imagerec
 import base64
 
 app = Flask(__name__)
-@app.route('/braintumorbase', methods=['POST','PUT'])
+@app.route('/braintumorbase', methods=['POST', 'PUT'])
 def BrainTumorBase():
-    image_data = request.get_data()
-    print(image_data)
-    padding = len(image_data) % 4
-    if padding > 0:
-        image_data += b'=' * (4 - padding)
-    image_bytes = base64.b64decode(image_data)
     try:
-        pred, con = imagerec.imagerecognise(image_bytes, "Models/BrainTumuorModel.h5", labelpath="Models/BrainTumuorLabels.txt")
-    except:
-        return "Error: Failed to recognize image."
-
-    return str(pred)
-
+        image_data = request.get_data()
+        image_data = base64.b64decode(image_data)
+        
+        # Convert the image data to PIL Image object
+        image = Image.open(io.BytesIO(image_data))
+        
+        # Convert PIL Image to numpy array
+        image_array = np.array(image)
+        
+        # Perform image recognition
+        pred, _ = imagerec.imagerecognise(image_array, "Models/BrainTumuorModel.h5", labelpath="Models/BrainTumuorLabels.txt")
+        
+        # Return the prediction as a response
+        response = {
+            'prediction': pred
+        }
+        
+        return response
+    except Exception as e:
+        return str(e)
 @app.route('/braintumor', methods=['POST','PUT'])
 def BrainTumor():
     image_file = request.files['image']
