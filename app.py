@@ -12,7 +12,7 @@ def BrainTumorBase():
         image_data = base64.b64decode(image_data)
         
         # Convert the image data to PIL Image object
-        image = Image.open(io.BytesIO(image_data))
+        image = Image.open((image_data))
         
         # Convert PIL Image to numpy array
         image_array = np.array(image)
