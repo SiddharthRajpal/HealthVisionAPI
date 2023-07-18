@@ -6,6 +6,7 @@ app = Flask(__name__)
 @app.route('/braintumorbase', methods=['POST','PUT'])
 def BrainTumorBase():
     image_data = request.get_data()
+    print(image_data)
     padding = len(image_data) % 4
     if padding > 0:
         image_data += b'=' * (4 - padding)
