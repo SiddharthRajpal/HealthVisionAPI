@@ -8,16 +8,12 @@ def BrainTumorBase():
     image_data = request.get_data()
     padding = len(image_data) % 4
     if padding > 0:
-        image_data += '=' * (4 - padding)
-    #image_file = base64.b64decode(image_data)
-    #image_utf = image_file.decode('utf-8')
-    print(image_file)
-
-    print(image_utf)
+        image_data += b'=' * (4 - padding)
+    image_bytes = base64.b64decode(image_data)
     try:
-        pred,con = imagerec.imagerecognise(image_file,"Models/BrainTumuorModel.h5",labelpath="Models/BrainTumuorLabels.txt")
+        pred, con = imagerec.imagerecognise(image_bytes, "Models/BrainTumuorModel.h5", labelpath="Models/BrainTumuorLabels.txt")
     except:
-        pred,con = imagerec.imagerecognise(image_utf,"Models/BrainTumuorModel.h5",labelpath="Models/BrainTumuorLabels.txt")
+        return "Error: Failed to recognize image."
 
     return str(pred)
 
